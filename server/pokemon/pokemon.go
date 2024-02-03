@@ -1,11 +1,12 @@
 package pokemon
 
 // General pokemon type
+// lowercase fields are not exposed, so these are uppercase
 type Pokemon struct {
-	name string
-	hp   int
+	Name string
+	Hp   int
 }
 
 func (p *Pokemon) Damage(loss int) {
-	p.hp -= loss
+	p.Hp -= loss
 }
