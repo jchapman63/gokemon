@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	fmt.Print("hello")
+	// initialize a simple game environment
 	tackle := pokemon.DamageMove{
 		Name:  "tackle",
 		Power: 10,
@@ -30,9 +30,8 @@ func main() {
 			tackle,
 		},
 	}
-	// working, health decreased after attack
-	// localAttackTest(pika, bulbasaur)
 
+	// monster info
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// doesn't need to place string into there
 		fmt.Fprint(w, "First monster: ", html.EscapeString(pika.Name), "Health: ", html.EscapeString(strconv.Itoa(pika.Hp)))
@@ -40,7 +39,7 @@ func main() {
 		fmt.Fprint(w, "Second monster: ", html.EscapeString(bulbasaur.Name), "Health: ", html.EscapeString(strconv.Itoa(bulbasaur.Hp)))
 	})
 
-	// not working
+	// a simple attack as a demo
 	http.HandleFunc("/damage", func(w http.ResponseWriter, r *http.Request) {
 		pika.Attack(bulbasaur, tackle)
 	})
