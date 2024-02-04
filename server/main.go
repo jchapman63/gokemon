@@ -36,11 +36,12 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// doesn't need to place string into there
 		fmt.Fprint(w, "First monster: ", html.EscapeString(pika.Name), "Health: ", html.EscapeString(strconv.Itoa(pika.Hp)))
+		fmt.Fprint(w, "\n")
 		fmt.Fprint(w, "Second monster: ", html.EscapeString(bulbasaur.Name), "Health: ", html.EscapeString(strconv.Itoa(bulbasaur.Hp)))
 	})
 
 	// not working
-	http.HandleFunc("/attack", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/damage", func(w http.ResponseWriter, r *http.Request) {
 		pika.Attack(bulbasaur, tackle)
 	})
 
