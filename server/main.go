@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/jchapman63/gokemon/server/pokemon"
+	"github.com/jchapman63/server/pokemon"
 )
 
 func main() {
