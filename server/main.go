@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/jchapman63/gokemon/pokemon"
+	"github.com/jchapman63/gokemon/server/pokemon"
 )
 
 func main() {
