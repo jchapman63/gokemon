@@ -55,3 +55,5 @@ func localAttackTest(pika *pokemon.Pokemon, bulb *pokemon.Pokemon) {
 	pika.Attack(bulb, move)
 	fmt.Print("bubla health: ", bulb.Hp)
 }
+
+// TIP: web page not refreshed? use shift + cmd + R
