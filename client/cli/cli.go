@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/jchapman63/server"
+	"github.com/jchapman63/server/game"
 	"github.com/nexidian/gocliselect"
 )
 
@@ -37,7 +38,8 @@ func MainMenu() {
 		defer respJSON.Body.Close() // close resp body before function ends
 
 		// TODO TEST JSON UNPACKING
-		var data map[string]interface{}
+		// var data map[string]interface{}
+		var game game.Game
 
 		// read resp body
 		bodyJSON, err := io.ReadAll(respJSON.Body)
@@ -45,11 +47,11 @@ func MainMenu() {
 			fmt.Println("Error reading response body: ", err)
 			return
 		}
-		if err := json.Unmarshal(bodyJSON, &data); err != nil {
+		if err := json.Unmarshal(bodyJSON, &game); err != nil {
 			panic(err)
 		}
 		fmt.Println("json data")
-		fmt.Println(data)
+		fmt.Println(game.Pokemon[0].Hp) // returns 100
 		// END JSON TESTING FROM SERVER ENDPOINT
 
 		// connect to the match
