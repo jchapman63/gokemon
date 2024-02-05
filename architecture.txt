@@ -3,3 +3,17 @@ The server also needs to be a docker image of its own, displayed on the host's m
 
 I want the pokemon to be pretty accurate, but for the sake of time, I can pre create a handful of them with a set of four moves.
 Each player is randomly assigned one at the start of the game.
+
+02/05/24
+The server needs more intelligent data structures to handle game state.  Game logic should live in the server.
+Here are things that need to be known:
+    Players in game (can come later)
+    Pokemon battling in game and their stats
+
+When does a game end?
+    When one pokemon runs out of HP (HP < 0)
+
+These structures should be exportable (JSON) to be received and parsed by the client
+
+NEXT STEPS: 
+    - Clean up CLI code and properly decode JSON.  I can probably get rid of the "/" endpoint in the server.

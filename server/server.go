@@ -1,12 +1,14 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
 	"html"
 	"log"
 	"net/http"
 	"strconv"
 
+	"github.com/jchapman63/server/game"
 	"github.com/jchapman63/server/pokemon"
 )
 
@@ -31,6 +33,13 @@ func Server() {
 		},
 	}
 
+	game := game.Game{
+		Pokemon: []*pokemon.Pokemon{
+			pika,
+			bulbasaur,
+		},
+	}
+
 	// monster info
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// doesn't need to place string into there
@@ -42,6 +51,12 @@ func Server() {
 	// a simple attack as a demo
 	http.HandleFunc("/damage", func(w http.ResponseWriter, r *http.Request) {
 		pika.Attack(bulbasaur, tackle)
+	})
+
+	// return digestable game state
+	http.HandleFunc("/state", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(game)
 	})
 
 	fmt.Println("Server is listening localhost:8081")

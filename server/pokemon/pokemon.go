@@ -6,9 +6,9 @@ package pokemon
 // General pokemon type
 // lowercase fields are not exposed, so these are uppercase
 type Pokemon struct {
-	Name  string
-	Hp    int
-	Moves []DamageMove
+	Name  string       `json:"pokemon-name"`
+	Hp    int          `json:"hp"`
+	Moves []DamageMove `json:"moves"`
 }
 
 func (p *Pokemon) Attack(o *Pokemon, attack DamageMove) {
