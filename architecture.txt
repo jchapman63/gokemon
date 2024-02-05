@@ -16,4 +16,6 @@ When does a game end?
 These structures should be exportable (JSON) to be received and parsed by the client
 
 NEXT STEPS: 
-    - Clean up CLI code and properly decode JSON.  I can probably get rid of the "/" endpoint in the server.
+    - Clean up CLI code
+    - properly decode JSON DONE.  
+    - I can probably get rid of the "/" endpoint in the server.

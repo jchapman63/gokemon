@@ -3,6 +3,7 @@ package cli
 // NOTE: Ultimately, this file will need to be cleaned up, the functionality of server interactions should be from client.go and
 // creating the CLI should only be done here.
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -35,13 +36,20 @@ func MainMenu() {
 		}
 		defer respJSON.Body.Close() // close resp body before function ends
 
+		// TODO TEST JSON UNPACKING
+		var data map[string]interface{}
+
 		// read resp body
 		bodyJSON, err := io.ReadAll(respJSON.Body)
 		if err != nil {
 			fmt.Println("Error reading response body: ", err)
 			return
 		}
-		fmt.Println("\n", string(bodyJSON), "\n")
+		if err := json.Unmarshal(bodyJSON, &data); err != nil {
+			panic(err)
+		}
+		fmt.Println("json data")
+		fmt.Println(data)
 		// END JSON TESTING FROM SERVER ENDPOINT
 
 		// connect to the match
