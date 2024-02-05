@@ -1,0 +1,5 @@
+The server can maintain itself until the match is won.  After, it can self destruct and make the players exit the battle.
+The server also needs to be a docker image of its own, displayed on the host's machine.
+
+I want the pokemon to be pretty accurate, but for the sake of time, I can pre create a handful of them with a set of four moves.
+Each player is randomly assigned one at the start of the game.
