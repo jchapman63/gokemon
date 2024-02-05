@@ -10,7 +10,7 @@ import (
 	"github.com/jchapman63/server/pokemon"
 )
 
-func main() {
+func Server() {
 	// initialize a simple game environment
 	tackle := pokemon.DamageMove{
 		Name:  "tackle",
@@ -34,9 +34,9 @@ func main() {
 	// monster info
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// doesn't need to place string into there
-		fmt.Fprint(w, "First monster: ", html.EscapeString(pika.Name), "Health: ", html.EscapeString(strconv.Itoa(pika.Hp)))
+		fmt.Fprint(w, "First monster: ", html.EscapeString(pika.Name), " Health: ", html.EscapeString(strconv.Itoa(pika.Hp)))
 		fmt.Fprint(w, "\n")
-		fmt.Fprint(w, "Second monster: ", html.EscapeString(bulbasaur.Name), "Health: ", html.EscapeString(strconv.Itoa(bulbasaur.Hp)))
+		fmt.Fprint(w, "Second monster: ", html.EscapeString(bulbasaur.Name), " Health: ", html.EscapeString(strconv.Itoa(bulbasaur.Hp)))
 	})
 
 	// a simple attack as a demo
