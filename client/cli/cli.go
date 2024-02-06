@@ -7,7 +7,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/jchapman63/client"
+	"github.com/jchapman63/client/gameCalls"
 	"github.com/jchapman63/server"
 	"github.com/nexidian/gocliselect"
 )
@@ -28,7 +28,7 @@ func MainMenu() {
 		server.Server()
 	} else if choice == "connect" {
 
-		game, err := client.GameData()
+		game, err := gameCalls.GameData()
 		if err != nil {
 			// TODO configure UI to handle error
 			return
