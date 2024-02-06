@@ -3,13 +3,12 @@ package cli
 // NOTE: Ultimately, this file will need to be cleaned up, the functionality of server interactions should be from client.go and
 // creating the CLI should only be done here.
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 
+	"github.com/jchapman63/client"
 	"github.com/jchapman63/server"
-	"github.com/jchapman63/server/game"
 	"github.com/nexidian/gocliselect"
 )
 
@@ -28,31 +27,14 @@ func MainMenu() {
 		// this way the CLI is free to select more options that send requests
 		server.Server()
 	} else if choice == "connect" {
-		// JSON TESTING FROM SERVER ENDPOINT
-		// Currently is just a bunch of bytes that get converted to string, I am sure I can marshal this into a usable struct
-		respJSON, err := http.Get(baseUrl + "/state")
-		if err != nil {
-			fmt.Println("server not found")
-			return
-		}
-		defer respJSON.Body.Close() // close resp body before function ends
 
-		// TODO TEST JSON UNPACKING
-		// var data map[string]interface{}
-		var game game.Game
-
-		// read resp body
-		bodyJSON, err := io.ReadAll(respJSON.Body)
+		game, err := client.GameData()
 		if err != nil {
-			fmt.Println("Error reading response body: ", err)
+			// TODO configure UI to handle error
 			return
-		}
-		if err := json.Unmarshal(bodyJSON, &game); err != nil {
-			panic(err)
 		}
 		fmt.Println("json data")
 		fmt.Println(game.Pokemon[0].Hp) // returns 100
-		// END JSON TESTING FROM SERVER ENDPOINT
 
 		// connect to the match
 		resp, err := http.Get(baseUrl + "/")
