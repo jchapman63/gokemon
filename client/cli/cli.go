@@ -4,16 +4,17 @@ package cli
 // creating the CLI should only be done here.
 import (
 	"fmt"
-	"io"
-	"net/http"
 
 	"github.com/jchapman63/gokemon/client/gameCalls"
 	"github.com/jchapman63/gokemon/server"
 	"github.com/nexidian/gocliselect"
 )
 
-var baseUrl = "http://localhost:8081"
-
+// file design: function out all cli options to be called from a main loop in client.go
+// Menus so far
+// - MainMenu
+// - AttackMenu
+// The menus should be agnostic to what their "funcitonality" is.  I just want to get strings back from them
 func MainMenu() {
 	menu := gocliselect.NewMenu("How would you like to play?")
 
@@ -36,49 +37,28 @@ func MainMenu() {
 		fmt.Println("json data")
 		fmt.Println(game.Pokemon[0].Hp) // returns 100
 
-		// connect to the match
-		resp, err := http.Get(baseUrl + "/")
-		if err != nil {
-			fmt.Println("server not found")
-			return
-		}
-		defer resp.Body.Close() // close resp body before function ends
-
-		// read resp body
-		body, err := io.ReadAll(resp.Body)
-		if err != nil {
-			fmt.Println("Error reading response body: ", err)
-			return
-		}
-		fmt.Println("\n", string(body), "\n")
-
-		actionMenu := gocliselect.NewMenu("Attack!")
-		actionMenu.AddItem("Tackle", "tackle")
-		actionMenu.AddItem("Quit", "quit")
-
-		actionChoice := actionMenu.Display()
+		actionChoice := AttackMenu()
 
 		if actionChoice == "tackle" {
-			_, err := http.Get(baseUrl + "/damage")
+			// call attack, it returns a game state -> which is the struct of interest
+			game, err := gameCalls.BasicAttack()
 			if err != nil {
-				fmt.Println("error, disconnecting: ", err)
+				fmt.Println("failed attack called: ", err)
 				return
 			}
-
-			// see tackle results
-			resp, err := http.Get(baseUrl + "/")
-			if err != nil {
-				fmt.Println("server not found")
-				return
-			}
-			defer resp.Body.Close() // close resp body before function ends
-			// read resp body
-			body, err := io.ReadAll(resp.Body)
-			if err != nil {
-				fmt.Println("Error reading response body: ", err)
-				return
-			}
-			fmt.Println("\n", string(body), "\n")
+			fmt.Println("json data after attack")
+			fmt.Println(game.Pokemon[1].Hp) // returns crazy negative num
 		}
 	}
+}
+
+// TODO: Add params
+func AttackMenu() string {
+	actionMenu := gocliselect.NewMenu("Attack!")
+	actionMenu.AddItem("Tackle", "tackle")
+	actionMenu.AddItem("Quit", "quit")
+
+	actionChoice := actionMenu.Display()
+
+	return actionChoice
 }

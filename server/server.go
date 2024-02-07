@@ -3,10 +3,8 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"html"
 	"log"
 	"net/http"
-	"strconv"
 
 	"github.com/jchapman63/gokemon/server/game"
 	"github.com/jchapman63/gokemon/server/pokemon"
@@ -39,14 +37,6 @@ func Server() {
 			bulbasaur,
 		},
 	}
-
-	// monster info
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// doesn't need to place string into there
-		fmt.Fprint(w, "First monster: ", html.EscapeString(pika.Name), " Health: ", html.EscapeString(strconv.Itoa(pika.Hp)))
-		fmt.Fprint(w, "\n")
-		fmt.Fprint(w, "Second monster: ", html.EscapeString(bulbasaur.Name), " Health: ", html.EscapeString(strconv.Itoa(bulbasaur.Hp)))
-	})
 
 	// a simple attack as a demo
 	http.HandleFunc("/damage", func(w http.ResponseWriter, r *http.Request) {
