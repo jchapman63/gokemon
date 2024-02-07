@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/jchapman63/client"
+	"github.com/jchapman63/gokemon/client"
 )
 
 // / Dev Doc: starting out, I will just ask for simple input to get the server started.  Later, a more refined CLI would be nice.
