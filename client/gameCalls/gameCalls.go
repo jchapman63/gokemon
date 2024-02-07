@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/jchapman63/server/game"
+	"github.com/jchapman63/gokemon/server/game"
 )
 
 var baseUrl = "localhost:8081"

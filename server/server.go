@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/jchapman63/server/game"
-	"github.com/jchapman63/server/pokemon"
+	"github.com/jchapman63/gokemon/server/game"
+	"github.com/jchapman63/gokemon/server/pokemon"
 )
 
 func Server() {

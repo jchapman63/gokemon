@@ -7,8 +7,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/jchapman63/client/gameCalls"
-	"github.com/jchapman63/server"
+	"github.com/jchapman63/gokemon/client/gameCalls"
+	"github.com/jchapman63/gokemon/server"
 	"github.com/nexidian/gocliselect"
 )
 

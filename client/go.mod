@@ -1,4 +1,4 @@
-module github.com/jchapman63/client
+module github.com/jchapman63/gokemon/client
 
 go 1.21.6
 

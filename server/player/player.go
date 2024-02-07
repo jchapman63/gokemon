@@ -1,6 +1,6 @@
 package player
 
-import "github.com/jchapman63/server/pokemon"
+import "github.com/jchapman63/gokemon/server/pokemon"
 
 // this will host the player struct and its data
 type Player struct {

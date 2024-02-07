@@ -1,6 +1,6 @@
 package game
 
-import "github.com/jchapman63/server/pokemon"
+import "github.com/jchapman63/gokemon/server/pokemon"
 
 type Game struct {
 	Pokemon []*pokemon.Pokemon `json:"pokemon"`
