@@ -17,15 +17,14 @@ func ClientStart() {
 	} else if action == "connect" {
 		game, err := gameCalls.GameData()
 		if err != nil {
-			fmt.Println("Failed to connect: ", err)
+			fmt.Println("Connection Failed: ", err)
 		}
 
 		// a "while" loop that goes until the game is over happens here.
 		isOver, err := gameCalls.IsGameOver()
 		if err != nil {
-			fmt.Println("Failed to connect: ", err)
+			fmt.Println("Connection Failed: ", err)
 		}
-
 		for isOver != true {
 			// generate and get actions
 			choice := cli.AttackMenu()
@@ -44,6 +43,11 @@ func ClientStart() {
 				fmt.Println(game.Pokemon[1].Hp)
 			} else if choice == "quit" {
 				return
+			}
+
+			isOver, err = gameCalls.IsGameOver()
+			if err != nil {
+				fmt.Println("Connection Failed: ", err)
 			}
 		}
 	}
