@@ -16,6 +16,5 @@ When does a game end?
 These structures should be exportable (JSON) to be received and parsed by the client
 
 NEXT STEPS: 
-    - Clean up CLI code : IN PROGRESS (need to refactor `GameData` to use new json struct function)
-    - properly decode JSON DONE.  
-    - I can probably get rid of the "/" endpoint in the server.
+    - Clean up CLI code : IN PROGRESS
+    - Create isGameOver endpoint and finish handling bool response
