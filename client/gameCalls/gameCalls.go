@@ -20,6 +20,15 @@ func GameData() (*game.Game, error) {
 	return game, nil
 }
 
+func IsGameOver() (bool, error) {
+	respJSON, err := http.Get(baseUrl + "/isOver")
+	if err != nil {
+		return nil, err
+	}
+
+	return isOver, nil
+}
+
 // will later have parameters for the pokemon attacking (the client's mon)
 // I could either pass game as parameter, or I could get a new game object... new is more up to date with the server...
 // there is more abstraction I can do between these functions...
@@ -31,6 +40,13 @@ func BasicAttack() (*game.Game, error) {
 	http.Get(baseUrl + "/damage")
 	game, err := GameData()
 	if err != nil {
+		return nil, err
+	}
+
+	// need to finish configuring to get bool back from server
+	bodyJSON, err := io.ReadAll(respJSON.Body)
+	if err != nil {
+		fmt.Println("Error reading json: ", err)
 		return nil, err
 	}
 
