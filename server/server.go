@@ -49,6 +49,11 @@ func Server() {
 		json.NewEncoder(w).Encode(game)
 	})
 
+	http.HandleFunc("/isOver", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(game.IsGameOver())
+	})
+
 	fmt.Println("Server is listening localhost:8081")
 	// why nil here? But, this will serve the app
 	log.Fatal(http.ListenAndServe(":8081", nil))

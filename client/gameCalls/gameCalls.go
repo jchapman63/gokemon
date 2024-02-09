@@ -23,7 +23,16 @@ func GameData() (*game.Game, error) {
 func IsGameOver() (bool, error) {
 	respJSON, err := http.Get(baseUrl + "/isOver")
 	if err != nil {
-		return nil, err
+		return false, err
+	}
+
+	var isOver bool
+	bodyJSON, err := io.ReadAll(respJSON.Body)
+	if err != nil {
+		return false, err
+	}
+	if err := json.Unmarshal(bodyJSON, &isOver); err != nil {
+		return false, err
 	}
 
 	return isOver, nil
@@ -40,13 +49,6 @@ func BasicAttack() (*game.Game, error) {
 	http.Get(baseUrl + "/damage")
 	game, err := GameData()
 	if err != nil {
-		return nil, err
-	}
-
-	// need to finish configuring to get bool back from server
-	bodyJSON, err := io.ReadAll(respJSON.Body)
-	if err != nil {
-		fmt.Println("Error reading json: ", err)
 		return nil, err
 	}
 

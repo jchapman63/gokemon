@@ -20,7 +20,7 @@ func MainMenu() string {
 	return choice
 }
 
-// TODO: Add params
+// TODO: Add params of a pokemon's moves
 func AttackMenu() string {
 	actionMenu := gocliselect.NewMenu("Attack!")
 	actionMenu.AddItem("Tackle", "tackle")

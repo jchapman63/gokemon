@@ -6,7 +6,7 @@ type Game struct {
 	Pokemon []*pokemon.Pokemon `json:"pokemon"`
 }
 
-func (g *Game) isGameOver() bool {
+func (g *Game) IsGameOver() bool {
 	for i := range g.Pokemon {
 		if g.Pokemon[i].Hp <= 0 {
 			return true

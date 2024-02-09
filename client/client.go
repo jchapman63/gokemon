@@ -16,29 +16,35 @@ func ClientStart() {
 		server.Server()
 	} else if action == "connect" {
 		game, err := gameCalls.GameData()
-
-		// a "while" loop that goes until the game is over happens here.
-
 		if err != nil {
-			// TODO configure UI to handle error
-			return
+			fmt.Println("Failed to connect: ", err)
 		}
 
-		// temporary print
-		fmt.Println("json data")
-		fmt.Println(game.Pokemon[0].Hp) // returns 100
+		// a "while" loop that goes until the game is over happens here.
+		isOver, err := gameCalls.IsGameOver()
+		if err != nil {
+			fmt.Println("Failed to connect: ", err)
+		}
 
-		choice := cli.AttackMenu()
+		for isOver != true {
+			// generate and get actions
+			choice := cli.AttackMenu()
 
-		if choice == "tackle" {
-			// call attack, it returns a game state -> which is the struct of interest
-			game, err := gameCalls.BasicAttack()
-			if err != nil {
-				fmt.Println("failed attack called: ", err)
+			// temporary print
+			fmt.Println("json data")
+			fmt.Println(game.Pokemon[0].Hp) // returns 100
+			if choice == "tackle" {
+				// call attack, it returns a game state -> which is the struct of interest
+				game, err := gameCalls.BasicAttack()
+				if err != nil {
+					fmt.Println("failed attack called: ", err)
+					return
+				}
+				fmt.Println("json data after attack")
+				fmt.Println(game.Pokemon[1].Hp)
+			} else if choice == "quit" {
 				return
 			}
-			fmt.Println("json data after attack")
-			fmt.Println(game.Pokemon[1].Hp)
 		}
 	}
 }
