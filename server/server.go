@@ -38,7 +38,11 @@ func Server() {
 		},
 	}
 
+	// TODO: Server needs to first accept players into the game.  Then, the game needs to be populated with
+	// their pkmn chosen to fight.
+
 	// a simple attack as a demo
+	// TODO: Handle arguments for which pokemon attacks and which pokemon gets attacked
 	http.HandleFunc("/damage", func(w http.ResponseWriter, r *http.Request) {
 		pika.Attack(bulbasaur, tackle)
 	})
@@ -49,6 +53,7 @@ func Server() {
 		json.NewEncoder(w).Encode(game)
 	})
 
+	// calls Game's method to check if game over
 	http.HandleFunc("/isOver", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(game.IsGameOver())

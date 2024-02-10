@@ -16,5 +16,7 @@ When does a game end?
 These structures should be exportable (JSON) to be received and parsed by the client
 
 NEXT STEPS: 
-    - Clean up CLI code : IN PROGRESS
-    - Create isGameOver endpoint and finish handling bool response
+    - Work on server side player struct to receive player data from client
+        - 02/10/24, 9:50am; Left off on server.go
+    - Then! Work on allowing the host to be able to play (this may be when I need to containerize the server and run in detached)
+    - clean up comments
