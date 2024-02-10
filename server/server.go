@@ -40,6 +40,8 @@ func Server() {
 
 	// TODO: Server needs to first accept players into the game.  Then, the game needs to be populated with
 	// their pkmn chosen to fight.
+	// DETAIL: This is why I think I shouldn't have pokemon in a separate slice in game!
+	// TODO: remove pokemon slice from game struct
 
 	// a simple attack as a demo
 	// TODO: Handle arguments for which pokemon attacks and which pokemon gets attacked
