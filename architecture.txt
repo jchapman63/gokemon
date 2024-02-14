@@ -15,7 +15,11 @@ When does a game end?
 
 These structures should be exportable (JSON) to be received and parsed by the client
 
-NEXT STEPS: 
+02/13/24
+Predefined pokemon in pokemon.
+NEXT STEP: Configure client to use the newly created endpoint that returns a list of pokemon.
+
+NEXT STEPS:
     - Get game to work with pokemon connecting player added and fight against something random
     - Then! Work on allowing the host to be able to play (this may be when I need to containerize the server and run in detached)
     - clean up comments

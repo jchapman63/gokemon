@@ -66,6 +66,18 @@ func Server() {
 		fmt.Printf(adder.MonsterName)
 
 	})
+
+	http.HandleFunc("/getMonsters", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		pokemon := []string{
+			pokemon.Bulbasaur.Name,
+			pokemon.Gibble.Name,
+			pokemon.Pika.Name,
+			pokemon.Whooper.Name,
+		}
+		json.NewEncoder(w).Encode(pokemon)
+	})
+
 	// a simple attack as a demo
 	// TODO: Handle arguments for which pokemon attacks and which pokemon gets attacked
 	http.HandleFunc("/damage", func(w http.ResponseWriter, r *http.Request) {
@@ -94,5 +106,3 @@ func localAttackTest(pika *pokemon.Pokemon, bulb *pokemon.Pokemon) {
 	pika.Attack(bulb, move)
 	fmt.Print("bubla health: ", bulb.Hp)
 }
-
-// TIP: web page not refreshed? use shift + cmd + R

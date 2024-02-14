@@ -11,6 +11,7 @@ type Pokemon struct {
 	Moves []DamageMove `json:"moves"`
 }
 
+// Removes health from the pokemon based on attack's power
 func (p *Pokemon) Attack(o *Pokemon, attack DamageMove) {
 	o.Hp -= attack.Power
 }
@@ -18,4 +19,43 @@ func (p *Pokemon) Attack(o *Pokemon, attack DamageMove) {
 type DamageMove struct {
 	Name  string
 	Power int
+}
+
+// available pokemon
+var Bulbasaur = Pokemon{
+	Name: "bulbasaur",
+	Hp:   100,
+	Moves: []DamageMove{
+		tackle,
+	},
+}
+
+var Pika = Pokemon{
+	Name: "pikachu",
+	Hp:   100,
+	Moves: []DamageMove{
+		tackle,
+	},
+}
+
+var Gibble = Pokemon{
+	Name: "gibble",
+	Hp:   100,
+	Moves: []DamageMove{
+		tackle,
+	},
+}
+
+var Whooper = Pokemon{
+	Name: "whooper",
+	Hp:   100,
+	Moves: []DamageMove{
+		tackle,
+	},
+}
+
+// available moves
+var tackle = DamageMove{
+	Name:  "tackle",
+	Power: 10,
 }
