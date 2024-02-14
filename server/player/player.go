@@ -2,6 +2,11 @@ package player
 
 import "github.com/jchapman63/gokemon/server/pokemon"
 
+type MonsterAdder struct {
+	PlayerName  string `json:"player_name"`
+	MonsterName string `json:"monster_name"`
+}
+
 // this will host the player struct and its data
 type Player struct {
 	Name string `json:"player-name"`

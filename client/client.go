@@ -6,20 +6,44 @@ import (
 	"github.com/jchapman63/gokemon/client/cli"
 	"github.com/jchapman63/gokemon/client/gameCalls"
 	"github.com/jchapman63/gokemon/server"
+	"github.com/jchapman63/gokemon/server/player"
 )
 
 func ClientStart() {
+
 	var action string = cli.MainMenu()
 
 	if action == "host" {
 		// later will build a docker container
 		server.Server()
 	} else if action == "connect" {
+		// player create interface
+		playerName := cli.CreatePlayer()
+		var player = &player.Player{
+			Name: playerName,
+		}
+
+		// Player joining sever
+		resp, err := gameCalls.JoinGame(player)
+		if err != nil {
+			fmt.Println("Player ", playerName, "Connection Failed: ", err)
+			return
+		}
+		fmt.Println(resp.StatusCode, " Player ", playerName, " Connected Server! ")
+
+		// Player chooses pokemon to fight with
+		monster := cli.ChooseMonster()
+		resp, err = gameCalls.AddPokemonToPlayer(player.Name, monster)
+		if err != nil {
+			fmt.Println("Player ", playerName, " Failed to add pokemon : ", err)
+			return
+		}
+		fmt.Println(resp.StatusCode, " Player ", playerName, " added monster: ", monster)
+
 		game, err := gameCalls.GameData()
 		if err != nil {
 			fmt.Println("Connection Failed: ", err)
 		}
-
 		// a "while" loop that goes until the game is over happens here.
 		isOver, err := gameCalls.IsGameOver()
 		if err != nil {

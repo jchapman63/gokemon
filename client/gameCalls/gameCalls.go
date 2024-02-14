@@ -1,12 +1,14 @@
 package gameCalls
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/jchapman63/gokemon/server/game"
+	"github.com/jchapman63/gokemon/server/player"
 )
 
 var baseUrl = "http://localhost:8081"
@@ -36,6 +38,30 @@ func IsGameOver() (bool, error) {
 	}
 
 	return isOver, nil
+}
+
+func JoinGame(p *player.Player) (*http.Response, error) {
+	newData, _ := json.Marshal(p)
+	resp, err := http.Post(baseUrl+"/join", "application/json", bytes.NewBuffer(newData))
+	if err != nil {
+		panic(err)
+	}
+	return resp, nil
+}
+
+func AddPokemonToPlayer(playerName string, pkmnName string) (*http.Response, error) {
+
+	data := player.MonsterAdder{
+		PlayerName:  playerName,
+		MonsterName: pkmnName,
+	}
+
+	newData, _ := json.Marshal(data)
+	resp, err := http.Post(baseUrl+"/addPokemonToPlayer", "application/json", bytes.NewBuffer(newData))
+	if err != nil {
+		panic(err)
+	}
+	return resp, nil
 }
 
 // will later have parameters for the pokemon attacking (the client's mon)

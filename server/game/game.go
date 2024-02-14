@@ -21,9 +21,6 @@ func (g *Game) IsGameOver() bool {
 	return false
 }
 
-func (g *Game) AddPlayersToMatch(p []*player.Player) {
-	// THINKPOINT: there might be a cleaner way to do this
-	for i := range p {
-		g.Players = append(g.Players, p[i])
-	}
+func (g *Game) AddPlayerToMatch(p *player.Player) {
+	g.Players = append(g.Players, p)
 }

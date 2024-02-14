@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/jchapman63/gokemon/server/game"
+	"github.com/jchapman63/gokemon/server/player"
 	"github.com/jchapman63/gokemon/server/pokemon"
 )
 
@@ -31,6 +32,10 @@ func Server() {
 		},
 	}
 
+	// TODO: Server needs to first accept players into the game.  Then, the game needs to be populated with
+	// their pkmn chosen to fight.
+	// DETAIL: This is why I think I shouldn't have pokemon in a separate slice in game!
+	// TODO: remove pokemon slice from game struct
 	game := game.Game{
 		Pokemon: []*pokemon.Pokemon{
 			pika,
@@ -38,11 +43,29 @@ func Server() {
 		},
 	}
 
-	// TODO: Server needs to first accept players into the game.  Then, the game needs to be populated with
-	// their pkmn chosen to fight.
-	// DETAIL: This is why I think I shouldn't have pokemon in a separate slice in game!
-	// TODO: remove pokemon slice from game struct
+	http.HandleFunc("/join", func(w http.ResponseWriter, r *http.Request) {
+		decoder := json.NewDecoder(r.Body)
+		var player player.Player
 
+		err := decoder.Decode(&player)
+		if err != nil {
+			panic(err)
+		}
+
+		game.AddPlayerToMatch(&player)
+	})
+
+	http.HandleFunc("/addPokemonToPlayer", func(w http.ResponseWriter, r *http.Request) {
+		decoder := json.NewDecoder(r.Body)
+		var adder player.MonsterAdder
+		err := decoder.Decode(&adder)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Printf(adder.MonsterName)
+
+	})
 	// a simple attack as a demo
 	// TODO: Handle arguments for which pokemon attacks and which pokemon gets attacked
 	http.HandleFunc("/damage", func(w http.ResponseWriter, r *http.Request) {
