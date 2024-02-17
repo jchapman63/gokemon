@@ -11,7 +11,7 @@ import (
 	"github.com/jchapman63/gokemon/server/player"
 )
 
-var baseUrl = "http://localhost:8081"
+var baseUrl = "http://localhost:8080"
 
 func GameData() (*game.Game, error) {
 	var game *game.Game
@@ -35,6 +35,7 @@ func AvailableMonsters() ([]string, error) {
 		fmt.Println("Error reading json: ", err)
 		return nil, err
 	}
+
 	if err := json.Unmarshal(bodyJSON, &monsters); err != nil {
 		return nil, err
 	}

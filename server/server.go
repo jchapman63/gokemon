@@ -1,10 +1,12 @@
 package server
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/jchapman63/gokemon/server/game"
 	"github.com/jchapman63/gokemon/server/player"
@@ -12,6 +14,9 @@ import (
 )
 
 func Server() {
+	server := &http.Server{
+		Addr: ":8080",
+	}
 	// initialize a simple game environment
 	tackle := pokemon.DamageMove{
 		Name:  "tackle",
@@ -32,10 +37,6 @@ func Server() {
 		},
 	}
 
-	// TODO: Server needs to first accept players into the game.  Then, the game needs to be populated with
-	// their pkmn chosen to fight.
-	// DETAIL: This is why I think I shouldn't have pokemon in a separate slice in game!
-	// TODO: remove pokemon slice from game struct
 	game := game.Game{
 		Pokemon: []*pokemon.Pokemon{
 			pika,
@@ -62,11 +63,9 @@ func Server() {
 		if err != nil {
 			panic(err)
 		}
-
-		fmt.Printf(adder.MonsterName)
-
 	})
 
+	// allow players to choose an available monster
 	http.HandleFunc("/getMonsters", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		pokemon := []string{
@@ -96,9 +95,15 @@ func Server() {
 		json.NewEncoder(w).Encode(game.IsGameOver())
 	})
 
-	fmt.Println("Server is listening localhost:8081")
+	fmt.Println("Server is listening localhost:8080")
 	// why nil here? But, this will serve the app
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	log.Fatal(server.ListenAndServe())
+
+	if game.IsGameOver() {
+		shutdownCtx, shutdownRelease := context.WithTimeout(context.Background(), 10*time.Second)
+		defer shutdownRelease()
+		server.Shutdown(shutdownCtx)
+	}
 }
 
 func localAttackTest(pika *pokemon.Pokemon, bulb *pokemon.Pokemon) {

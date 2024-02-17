@@ -19,10 +19,11 @@ These structures should be exportable (JSON) to be received and parsed by the cl
 Predefined pokemon in pokemon.
 NEXT STEP: Configure client to use the newly created endpoint that returns a list of pokemon.
 
-NEXT STEPS:
-    - Get game to work with pokemon connecting player added and fight against something random
-    - Then! Work on allowing the host to be able to play (this may be when I need to containerize the server and run in detached)
-    - clean up comments
+02/17/24
+set up choosing pokemon in client based on what is available in the server and set up
+the beginnning of ending the game.
+
+NEXT STEP: work on containerizing the server in a detached way so that the host can join and play
 
 I want to get a database of some sort going that has all of these pokemon and moves that I can feed into the game.
 This would set me up to have a kubernetes cluster with a DB, client, and server

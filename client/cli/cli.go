@@ -8,7 +8,10 @@ import (
 	"os"
 	"strings"
 
+	"github.com/jchapman63/gokemon/client/gameCalls"
 	"github.com/nexidian/gocliselect"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 // file design: function out all cli options to be called from a main loop in client.go
@@ -42,11 +45,17 @@ func CreatePlayer() string {
 }
 
 func ChooseMonster() string {
+	pokemon, err := gameCalls.AvailableMonsters()
+	if err != nil {
+		fmt.Println("Failed to retrieve monsters from server")
+	}
+
 	actionMenu := gocliselect.NewMenu("Choose A Pokemon!")
-	actionMenu.AddItem("Pikachu", "pikachu")
-	actionMenu.AddItem("Bulbasaur", "bulbasaur")
-	actionMenu.AddItem("Gibble", "gibble")
-	actionMenu.AddItem("Whooper", "whooper")
+	for i := range pokemon {
+		titleMaker := cases.Title(language.English)
+		key := titleMaker.String(pokemon[i])
+		actionMenu.AddItem(key, pokemon[i])
+	}
 
 	actionChoice := actionMenu.Display()
 
