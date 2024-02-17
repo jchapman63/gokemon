@@ -22,6 +22,26 @@ func GameData() (*game.Game, error) {
 	return game, nil
 }
 
+func AvailableMonsters() ([]string, error) {
+	var monsters []string
+	respJSON, err := http.Get(baseUrl + "/getMonsters")
+	if err != nil {
+		fmt.Print("Data Request Failed: ", err)
+		return nil, err
+	}
+
+	bodyJSON, err := io.ReadAll(respJSON.Body)
+	if err != nil {
+		fmt.Println("Error reading json: ", err)
+		return nil, err
+	}
+	if err := json.Unmarshal(bodyJSON, &monsters); err != nil {
+		return nil, err
+	}
+
+	return monsters, nil
+}
+
 func IsGameOver() (bool, error) {
 	respJSON, err := http.Get(baseUrl + "/isOver")
 	if err != nil {
