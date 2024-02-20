@@ -23,6 +23,17 @@ NEXT STEP: Configure client to use the newly created endpoint that returns a lis
 set up choosing pokemon in client based on what is available in the server and set up
 the beginnning of ending the game.
 
+02/20/24
+I started working on containerizing the server, but I think the application architecture may get in the way of this.  "main", starts the client.  The
+apps are coupled together
+
+    SOLUTION
+        Take a flag from OS that indicates the server should start.
+    
+    TODO
+        Implement solution and set up "Host" to build the container and then connect to it.  This will use the current
+        connection logic
+
 NEXT STEP: work on containerizing the server in a detached way so that the host can join and play
 
 I want to get a database of some sort going that has all of these pokemon and moves that I can feed into the game.
