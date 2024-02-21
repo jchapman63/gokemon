@@ -5,7 +5,7 @@ FROM golang:latest
 WORKDIR /app
 
 # fist install source code dependencies
-COPY go.mod go.sum ./
+COPY go.mod ./
 RUN go mod download
 
 # then install the source code
@@ -17,6 +17,6 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /gokemon
 # TODO: Go app pulls this port in with OS library?
 EXPOSE 8081
 
-CMD ["/gokemon"]
+CMD ["/gokemon", "-s"]
 
 # TODO configure main of gokemon to run server
